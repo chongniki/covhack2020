@@ -1,0 +1,21 @@
+{
+    "manifest_version": 2,
+    "name": "FB Detector", 
+    "version": "1.0.0",
+
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+
+    "content_scripts": [{
+        "matches": ["https://www.facebook.com/*", 
+            "https://www.m.facebook.com/*"
+        ],
+        "js": ["scripts.js"]
+    }],
+
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+      }
+}
