@@ -12,10 +12,5 @@
             "https://www.m.facebook.com/*"
         ],
         "js": ["scripts.js"]
-    }],
-
-    "background": {
-        "scripts": ["background.js"],
-        "persistent": false
-      }
+    }]
 }
