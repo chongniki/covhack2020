@@ -9,4 +9,3 @@ sendButton.addEventListener('click', () => {
         chrome.tabs.sendMessage(tabs[0].id, 'sendData')
     })
 })
-

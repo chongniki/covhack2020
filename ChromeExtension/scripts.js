@@ -18,9 +18,15 @@ window.addEventListener('scroll', (event) => {
 
 detectPosts()
 chrome.runtime.onMessage.addListener(gotMessage)
-
 function gotMessage(message) {
     if(message == 'sendData') {
-        console.log(postData)
-    }
+        const url = 'http://localhost:8080/send_posts'
+        const data = JSON.stringify({'posts': postData})
+        const request_config = {method: 'POST', body: data, headers: {'Accept': 'Application/json', 'Content-Type': 'application/json'}}
+        fetch(url, request_config).then((data) => {
+            console.log(data)
+        }).catch((error) => {
+            console.log(error.message)
+        })
+    } 
 }
