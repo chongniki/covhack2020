@@ -7,7 +7,8 @@ const bodyParser = require('koa-bodyparser')
 router.post('/send_posts', bodyParser() ,(ctx) => {
     const reqBody = ctx.request.body
     const posts = reqBody.posts
-    ctx.body = {'name': 'Vinayak', posts}
+    console.log(posts)
+    ctx.body = { posts }
 })
 
 module.exports = router
