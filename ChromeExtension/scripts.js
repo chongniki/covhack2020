@@ -4,8 +4,6 @@ const postData = []
 function detectPosts() {
     const posts = document.getElementsByTagName('p')
     for(post of posts) {
-        post.style.border = 'thick solid green'
-        console.log("Index of the thing is " + postData.indexOf(post.innerText))
         if(postData.indexOf(post.innerText) < 0){
             postData.push(post.innerText)
         }
@@ -18,21 +16,36 @@ window.addEventListener('scroll', (event) => {
 
 detectPosts()
 chrome.runtime.onMessage.addListener(gotMessage)
+
+function processInformation(data) {
+    const posts = document.getElementsByTagName('p')
+    for(p of posts) {
+        for(d of data) {
+            if(p.innerText == Object.keys(d)[0]) {
+                if (Object.values(d)[0] == 1) {
+                    // code with hate or profanity
+                    p.style.border = 'thick solid red'
+                }else {
+                    p.style.border = 'thick solid black'
+                }
+            }
+        }
+    }
+}
+
 function gotMessage(message) {
-    console.log(message)
     if(message == 'sendData') {
         const url = 'http://localhost:8080/send_posts'
         const data = JSON.stringify({'posts': postData})
-        const request_config = {method: 'POST', body: data, headers: {'Accept': 'Application/json', 'Content-Type': 'application/json'}}
-        fetch(url, request_config).then((data) => {
-            console.log(data)
-        }).catch((error) => {
+        const request_config = {method: 'POST', body: data, headers: {'Accept': 'application/json', 'content-type': 'application/json'}}
+        fetch(url, request_config)
+        .then(
+            response => response.json()
+        ).then((response) => {
+            processInformation(response.data)
+        })
+        .catch((error) => {
             console.log(error.message)
         })
     }
 }
-
-// chrome.storage.sync.set({'foo': 'hello', 'bar': 'hi'}, function() {
-    //   console.log('Settings saved');
-// });
-
