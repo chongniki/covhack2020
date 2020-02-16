@@ -11,7 +11,7 @@ function detectPosts() {
         }
     }
 }
-
+  
 window.addEventListener('scroll', (event) => {
     detectPosts()
 })
@@ -19,6 +19,7 @@ window.addEventListener('scroll', (event) => {
 detectPosts()
 chrome.runtime.onMessage.addListener(gotMessage)
 function gotMessage(message) {
+    console.log(message)
     if(message == 'sendData') {
         const url = 'http://localhost:8080/send_posts'
         const data = JSON.stringify({'posts': postData})
@@ -28,5 +29,10 @@ function gotMessage(message) {
         }).catch((error) => {
             console.log(error.message)
         })
-    } 
+    }
 }
+
+// chrome.storage.sync.set({'foo': 'hello', 'bar': 'hi'}, function() {
+    //   console.log('Settings saved');
+// });
+
