@@ -7,6 +7,10 @@
         "default_popup": "popup.html"
     },
 
+    "permissions": [
+        "storage"
+    ],
+
     "content_scripts": [{
         "matches": ["https://www.facebook.com/*", 
             "https://www.m.facebook.com/*"
