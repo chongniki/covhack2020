@@ -26,17 +26,17 @@ def read_json():
       return 'post content success'
 
 def predictOutcome(content):
-    data=[]
-    for i in content:
-      data.append(content.get(i))
-    print(data)
-    prediction = model[0].predict(model[1](data))
-    preDict = {}
-    for i in content:
-      for x in prediction:
-        preDict[i] = str(x)
-    results = preDict
-    print(type(results))
+    #data=[]
+    #for i in content:
+    #  data.append(content.get(i))
+    #print(data)
+    print(content.get('messages'))
+    prediction = model[0].predict(model[1](content.get('messages')))
+    #preDict = {}
+    response = []
+    for i in range(len(content.get('messages'))):
+        response.append({str(content.get('messages')[i]):str(prediction[i])})
+    results = jsonify(response)
     #output = prediction
     return results
 
